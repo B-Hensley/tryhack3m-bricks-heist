@@ -33,13 +33,13 @@
   - I copied the raw exploit code for the bricks version 1.9.5 vulnerability from GitHub and pasted it into a nano .txt file titled, "shell.py".
 
   - Opened a terminal and ran the command, ```python3 shell.py -u https://bricks.thm```
-      - There was an error running the script, a few modules needed to be installed first.
-          - Installed rich module, ```pip3 install rich```
-              - Retried the python script, another error occured.
-                  - Installed prompt-toolkit module, ```pip3 install prompt-toolkit```
-                      - Retried the python script, yet another error occured.
-                        - Installed alive-progress module, ```pip3 install alive-progress```
-                            - Ran python script, it finally worked and the vulnerability was confirmed to be present.
+    - There was an error running the script, a few modules needed to be installed first.
+      - Installed rich module, ```pip3 install rich```
+        - Retried the python script, another error occured.
+          - Installed prompt-toolkit module, ```pip3 install prompt-toolkit```
+            - Retried the python script, yet another error occured.
+              - Installed alive-progress module, ```pip3 install alive-progress```
+                - Ran python script, it finally worked and the vulnerability was confirmed to be present.
   
   ### Step 3: Exploring Initial Access
 

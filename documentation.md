@@ -27,7 +27,7 @@
       - The scan aborted, "url seems to be down, SSL peer certificate or SSH remote key was not OK".
       - Retried scan while disabling the tls certificate check.
         ```bash
-         wpscan --url https://bricks.thm/ --disable-tls-checks
+        wpscan --url https://bricks.thm/ --disable-tls-checks
         ```
         
   - The scan ran successfully, the results showed the style "bricks" for WordPress, and the version was 1.9.5.
@@ -88,7 +88,7 @@
       ```
     - Before executing the reverse shell command, I opened another terminal to set up a listener on port 4444.
     ``` bash
-      nc -lvnp 4444
+    nc -lvnp 4444
     ```
       - Executed the reverse shell command, the initial access shell closed and a new connection began within the terminal with the listener.
         
@@ -96,7 +96,7 @@
         
           - I began exploring by running the
         ```bash
-         bash ls
+        ls
         ```
         command to see what was within the current directory.
         

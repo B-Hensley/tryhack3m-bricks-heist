@@ -87,8 +87,12 @@
       - Executed the reverse shell command, the initial access shell closed and a new connection began within the terminal with the listener.
         
       - We then had a stable connection to the shell where we could further explore.
-            - I began exploring by running the ``` bash ls ``` command to see what was within the current directory.
-                - The results showed a list of .txt and .php files.
+        
+          - I began exploring by running the
+        ``` bash ls ```
+        command to see what was within the current directory.
+        
+          - The results showed a list of .txt and .php files.
 
     - There were two .txt files that could be seen, one of which had a very long, odd name.
    

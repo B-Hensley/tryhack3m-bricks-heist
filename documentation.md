@@ -38,18 +38,24 @@
 
   - I copied the raw exploit code for the bricks version 1.9.5 vulnerability from GitHub and pasted it into a nano .txt file titled, "shell.py".
 
-  - Opened a terminal and ran the command, ```python3 shell.py -u https://bricks.thm```
+  - Opened a terminal and ran the command,
+    ```bash
+    python3 shell.py -u https://bricks.thm
+    ```
     - There was an error running the script, a few modules needed to be installed first.
+      
       - Installed rich module
         ``` bash
         pip3 install rich
         ```
         - Retried the python script, another error occured.
+          
           - Installed prompt-toolkit module
             ``` bash
             pip3 install prompt-toolkit
             ```
             - Retried the python script, yet another error occured.
+              
               - Installed alive-progress module
                 ``` bash
                 pip3 install alive-progress
@@ -89,7 +95,9 @@
       - We then had a stable connection to the shell where we could further explore.
         
           - I began exploring by running the
-        ``` bash ls ```
+        ```bash
+         bash ls
+        ```
         command to see what was within the current directory.
         
           - The results showed a list of .txt and .php files.
